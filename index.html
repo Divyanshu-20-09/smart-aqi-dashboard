@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart AQI Monitoring Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN SECTION -->
+    <div id="loginSection" class="auth-section active">
+        <div class="auth-container">
+            <h1>Smart Air Quality Monitoring Dashboard</h1>
+            <div class="auth-card">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input type="tel" id="mobileNumber" placeholder="Enter 10-digit mobile number" maxlength="10" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Send OTP</button>
+                </form>
+                <div id="otpSection" class="hidden">
+                    <div class="form-group">
+                        <label for="otpInput">Enter OTP</label>
+                        <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" required>
+                    </div>
+                    <button id="verifyOtpBtn" class="auth-btn">Verify OTP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- USER DETAILS SECTION -->
+    <div id="detailsSection" class="auth-section">
+        <div class="auth-container">
+            <h1>Smart Air Quality Monitoring Dashboard</h1>
+            <div class="auth-card">
+                <h2>Enter Your Location Details</h2>
+                <form id="detailsForm">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" placeholder="Enter your city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" placeholder="Enter your state" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" id="pincode" placeholder="Enter your pincode" maxlength="6" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Continue to Dashboard</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD SECTION -->
+    <div id="dashboardSection" class="dashboard-section hidden">
+        <header>
+            <h1>Smart Air Quality Monitoring & Public Health Dashboard</h1>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </header>
+
+        <div class="search-bar">
+            <input id="searchInput" type="search" placeholder="Search city (e.g. London, Delhi)" />
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <div class="container">
+            <nav class="left-sidebar" role="navigation" aria-label="Main sidebar">
+                <button id="btnHome" class="side-btn" title="Home">🏠</button>
+                <button id="btnWarning" class="side-btn" title="Warning">⚠️</button>
+                <button id="btnAQI" class="side-btn" title="AQI">
+                    <img src="assets/aqi-icon.svg" alt="AQI" class="icon">
+                </button>
+            </nav>
+
+            <main class="main">
+                <div id="map" class="map-full"></div>
+
+                <div id="overlay" class="overlay" aria-live="polite">
+                    <div class="card" id="alertCard">
+                        <h3>Public Health Alert</h3>
+                        <div id="healthAlert" class="alertBox">Loading AQI data...</div>
+                    </div>
+
+                    <div class="card chart-card" id="chartCard">
+                        <h3>Weekly AQI Trend</h3>
+                        <canvas id="aqiChart"></canvas>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
