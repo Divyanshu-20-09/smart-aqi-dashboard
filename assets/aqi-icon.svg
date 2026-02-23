@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-  <rect width="64" height="64" rx="10" fill="none"/>
-  <g fill="#1f2937">
-    <path d="M20 36a8 8 0 0 1 7.75-6.5h.6A11 11 0 0 1 44 25a9 9 0 0 1 0 18H20z" opacity="0.95"/>
-    <text x="8" y="58" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#1f2937">AQI</text>
-  </g>
-</svg>
