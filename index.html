@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- ═══════════════════════════ LOGIN SCREEN ═══════════════════════════ -->
+<!-- ════════════════════ LOGIN ════════════════════ -->
 <div class="login-screen" id="loginScreen">
   <div class="login-bg">
     <div class="login-bg-orb orb1"></div>
@@ -20,58 +20,52 @@
     <div class="login-bg-orb orb3"></div>
   </div>
 
+  <!-- theme toggle on login -->
+  <button class="login-theme-btn" id="loginThemeBtn" onclick="toggleTheme()" title="Toggle theme">
+    <svg class="icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="14.36" y1="14.36" x2="15.78" y2="15.78"/><line x1="4.22" y1="15.78" x2="5.64" y2="14.36"/><line x1="14.36" y1="5.64" x2="15.78" y2="4.22"/></svg>
+    <svg class="icon-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+  </button>
+
   <div class="login-card" id="loginCard">
-    <!-- Step 1: Login -->
+    <!-- Step 1 -->
     <div class="login-step" id="step1">
       <div class="login-logo">
-        <div class="login-logo-icon">
-          <svg viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M10 20 Q14 11 20 20 Q26 29 30 20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <circle cx="20" cy="20" r="2.5" fill="currentColor"/>
-          </svg>
-        </div>
+        <div class="login-logo-icon"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.8"/><path d="M10 20 Q14 11 20 20 Q26 29 30 20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="20" cy="20" r="2.5" fill="currentColor"/></svg></div>
         <span class="login-logo-name">VAYU</span>
       </div>
       <h1 class="login-title">Air Quality Intelligence</h1>
-      <p class="login-sub">Monitor real-time pollution data, health alerts & policy impacts across Indian cities.</p>
-
-      <div class="login-form" id="loginForm">
+      <p class="login-sub">Real-time pollution monitoring, health alerts &amp; clean route planning across Indian cities.</p>
+      <div class="login-form">
         <div class="form-group">
-          <label class="form-label">Username or Email</label>
+          <label class="form-label">Username</label>
           <div class="form-input-wrap">
             <svg class="form-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 14s-1-4-6-4-6 4-6 4"/><circle cx="10" cy="7" r="3"/></svg>
-            <input class="form-input" id="loginUser" type="text" placeholder="Enter your username" autocomplete="off"/>
+            <input class="form-input" id="loginUser" type="text" placeholder="Enter your username" autocomplete="off" onkeydown="if(event.key==='Enter')handleLogin()"/>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
           <div class="form-input-wrap">
             <svg class="form-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="12" height="9" rx="2"/><path d="M7 9V6a3 3 0 016 0v3"/></svg>
-            <input class="form-input" id="loginPass" type="password" placeholder="Enter your password"/>
-            <button class="form-eye" type="button" onclick="togglePassVis()" id="eyeBtn">
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>
-            </button>
+            <input class="form-input" id="loginPass" type="password" placeholder="Enter your password" onkeydown="if(event.key==='Enter')handleLogin()"/>
+            <button class="form-eye" type="button" onclick="togglePassVis()"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10s3-6 8-6 8 6 8 6-3 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg></button>
           </div>
         </div>
         <div class="form-error" id="loginError"></div>
-        <button class="login-btn" onclick="handleLogin()">
-          <span>Sign In</span>
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 6l4 4-4 4"/></svg>
-        </button>
-        <div class="login-hint">Demo: use any username + password</div>
+        <button class="login-btn" onclick="handleLogin()"><span>Sign In</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 6l4 4-4 4"/></svg></button>
+        <div class="login-hint">Demo: any username + any password (min 3 chars)</div>
       </div>
     </div>
 
-    <!-- Step 2: City & Pincode -->
+    <!-- Step 2 -->
     <div class="login-step" id="step2" style="display:none">
       <div class="step2-header">
         <div class="step2-icon">📍</div>
         <h2 class="step2-title">Set Your Location</h2>
-        <p class="step2-sub">We'll show you real-time AQI data for your area</p>
+        <p class="step2-sub">We'll navigate you to your city's live AQI map</p>
       </div>
       <div class="login-form">
-        <div class="form-group">
+        <div class="form-group" style="position:relative">
           <label class="form-label">Your City</label>
           <div class="form-input-wrap">
             <svg class="form-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2C6.69 2 4 4.69 4 8c0 5 6 10 6 10s6-5 6-10c0-3.31-2.69-6-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
@@ -87,27 +81,20 @@
           </div>
         </div>
         <div class="form-error" id="cityError"></div>
-        <button class="login-btn" onclick="handleCitySubmit()">
-          <span>Take Me There</span>
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 6l4 4-4 4"/></svg>
-        </button>
+        <button class="login-btn" onclick="handleCitySubmit()"><span>Take Me There</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 6l4 4-4 4"/></svg></button>
       </div>
     </div>
   </div>
-
   <div class="login-footer">© 2025 VAYU — Air Quality Intelligence Platform</div>
 </div>
 
-<!-- ═══════════════════════════ MAIN APP ═══════════════════════════ -->
+<!-- ════════════════════ APP SHELL ════════════════════ -->
 <div class="app-shell" id="appShell" style="display:none">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <div class="sidebar-brand">
-        <div class="brand-icon">
-          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5"/><path d="M8 16 Q12 8 16 16 Q20 24 24 16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
-        </div>
+        <div class="brand-icon"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5"/><path d="M8 16 Q12 8 16 16 Q20 24 24 16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg></div>
         <span class="brand-name">VAYU</span>
       </div>
       <div class="brand-tagline">Air Quality Intelligence</div>
@@ -117,45 +104,37 @@
       <div class="nav-section-label">MAIN</div>
       <a class="nav-link active" data-page="overview" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg></span>
-        <span class="nav-label">Overview</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">Overview</span><span class="nav-bar"></span>
       </a>
       <a class="nav-link" data-page="map" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5l4.5-1.5 5 2 4.5-2V15.5l-4.5 2-5-2-4.5 1.5V4.5z"/><line x1="7.5" y1="3" x2="7.5" y2="16"/><line x1="12.5" y1="5" x2="12.5" y2="17.5"/></svg></span>
-        <span class="nav-label">Pollution Map</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">Pollution Map</span><span class="nav-bar"></span>
       </a>
       <a class="nav-link" data-page="alerts" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 3L2.5 16.5h15L10 3z"/><line x1="10" y1="9" x2="10" y2="12"/><circle cx="10" cy="14.5" r="0.5" fill="currentColor"/></svg></span>
-        <span class="nav-label">Health Alerts</span>
-        <span class="nav-bar"></span>
-      </a>
-      <a class="nav-link" data-page="policy" href="#">
-        <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="14" height="14" rx="2"/><line x1="7" y1="7" x2="13" y2="7"/><line x1="7" y1="10" x2="13" y2="10"/><line x1="7" y1="13" x2="11" y2="13"/></svg></span>
-        <span class="nav-label">Policy Enforcement</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">Health Alerts</span><span class="nav-bar"></span>
       </a>
       <a class="nav-link" data-page="trends" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="2,15 6,9 10,12 14,6 18,3"/><line x1="2" y1="18" x2="18" y2="18"/></svg></span>
-        <span class="nav-label">AQI Trends</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">AQI Trends</span><span class="nav-bar"></span>
+      </a>
+      <a class="nav-link" data-page="route" href="#">
+        <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="5" r="2"/><circle cx="15" cy="15" r="2"/><path d="M5 7v3a4 4 0 004 4h1"/></svg></span>
+        <span class="nav-label">Clean Air Route</span><span class="nav-bar"></span>
       </a>
 
-      <div class="nav-section-label" style="margin-top:8px">WELLNESS</div>
+      <div class="nav-section-label" style="margin-top:6px">WELLNESS</div>
       <a class="nav-link" data-page="breathing" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 6v5" stroke-linecap="round"/><circle cx="10" cy="10" r="1.5" fill="currentColor" stroke="none"/></svg></span>
-        <span class="nav-label">Breathe</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">Breathe</span><span class="nav-bar"></span>
       </a>
       <a class="nav-link" data-page="forecast" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 14s1-4 7-4 7 4 7 4"/><path d="M10 10V5M7 7l3-2 3 2"/></svg></span>
-        <span class="nav-label">AQI Forecast</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">AQI Forecast</span><span class="nav-bar"></span>
       </a>
       <a class="nav-link" data-page="heatmap" href="#">
         <span class="nav-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="4" height="4" rx="1"/><rect x="8" y="2" width="4" height="4" rx="1"/><rect x="14" y="2" width="4" height="4" rx="1"/><rect x="2" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/><rect x="14" y="8" width="4" height="4" rx="1"/><rect x="2" y="14" width="4" height="4" rx="1"/><rect x="8" y="14" width="4" height="4" rx="1"/><rect x="14" y="14" width="4" height="4" rx="1"/></svg></span>
-        <span class="nav-label">Heat Map</span>
-        <span class="nav-bar"></span>
+        <span class="nav-label">Heat Map</span><span class="nav-bar"></span>
       </a>
     </nav>
 
@@ -174,61 +153,207 @@
         <option value="chennai">Chennai</option>
         <option value="kolkata">Kolkata</option>
       </select>
-      <div class="sf-user" id="sfUser">
+      <div class="sf-user">
         <div class="sf-avatar" id="sfAvatar">U</div>
-        <div class="sf-user-info">
-          <div class="sf-username" id="sfUsername">User</div>
-          <div class="sf-userloc" id="sfUserloc">—</div>
-        </div>
-        <button class="sf-logout" onclick="handleLogout()" title="Log out">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3h4v14h-4M8 7l-4 3 4 3M4 10h9"/></svg>
-        </button>
+        <div class="sf-user-info"><div class="sf-username" id="sfUsername">User</div><div class="sf-userloc" id="sfUserloc">—</div></div>
+        <button class="sf-logout" onclick="handleLogout()" title="Log out"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3h4v14h-4M8 7l-4 3 4 3M4 10h9"/></svg></button>
       </div>
     </div>
   </aside>
 
   <button class="hamburger" id="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
 
-  <!-- MAIN PAGES -->
   <main class="main" id="main">
 
     <!-- OVERVIEW -->
     <section class="page active" id="page-overview">
-      <div class="overview-hero" id="overviewHero">
-        <div class="hero-left">
-          <div class="hero-eyebrow">REAL-TIME MONITORING</div>
-          <div class="hero-city" id="heroCity">NEW DELHI</div>
-          <div class="hero-aqi-row">
-            <div class="hero-aqi-num" id="heroAqi">—</div>
-            <div class="hero-aqi-info">
-              <div class="hero-aqi-unit">AQI INDEX</div>
-              <div class="hero-aqi-cat" id="heroAqiCat">—</div>
+
+      <!-- ═══ ANIMATED HERO BANNER ═══ -->
+      <div class="aqi-banner" id="aqiBanner">
+
+        <!-- Particle layer -->
+        <canvas class="banner-particles" id="bannerParticles"></canvas>
+
+        <!-- Sky scene -->
+        <div class="banner-scene">
+          <!-- Sun / Moon -->
+          <div class="banner-sun" id="bannerSun">
+            <div class="sun-core"></div>
+            <div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div>
+            <div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div>
+          </div>
+          <!-- Clouds -->
+          <div class="banner-cloud cloud1" id="cloud1">
+            <div class="cloud-puff p1"></div><div class="cloud-puff p2"></div><div class="cloud-puff p3"></div>
+          </div>
+          <div class="banner-cloud cloud2" id="cloud2">
+            <div class="cloud-puff p1"></div><div class="cloud-puff p2"></div>
+          </div>
+          <div class="banner-cloud cloud3" id="cloud3">
+            <div class="cloud-puff p1"></div><div class="cloud-puff p2"></div><div class="cloud-puff p3"></div>
+          </div>
+          <!-- Smog haze layer -->
+          <div class="banner-haze" id="bannerHaze"></div>
+          <!-- Cityscape SVG -->
+          <svg class="banner-city" viewBox="0 0 900 160" preserveAspectRatio="xMidYMax meet">
+            <!-- back buildings -->
+            <rect x="20"  y="80"  width="28" height="80" rx="2" fill="currentColor" opacity=".18"/>
+            <rect x="55"  y="60"  width="22" height="100" rx="2" fill="currentColor" opacity=".14"/>
+            <rect x="85"  y="90"  width="35" height="70" rx="2" fill="currentColor" opacity=".18"/>
+            <rect x="128" y="50"  width="20" height="110" rx="2" fill="currentColor" opacity=".14"/>
+            <rect x="155" y="70"  width="30" height="90"  rx="2" fill="currentColor" opacity=".16"/>
+            <rect x="195" y="40"  width="18" height="120" rx="2" fill="currentColor" opacity=".12"/>
+            <rect x="222" y="65"  width="25" height="95"  rx="2" fill="currentColor" opacity=".16"/>
+            <!-- dome / temple shapes -->
+            <ellipse cx="270" cy="72" rx="22" ry="15" fill="currentColor" opacity=".18"/>
+            <rect x="258" y="72" width="24" height="88" fill="currentColor" opacity=".18"/>
+            <ellipse cx="350" cy="60" rx="18" ry="12" fill="currentColor" opacity=".14"/>
+            <rect x="338" y="60" width="24" height="100" fill="currentColor" opacity=".14"/>
+            <!-- mid buildings -->
+            <rect x="300" y="85" width="30" height="75" rx="2" fill="currentColor" opacity=".2"/>
+            <rect x="390" y="55" width="22" height="105" rx="2" fill="currentColor" opacity=".16"/>
+            <rect x="420" y="75" width="35" height="85"  rx="2" fill="currentColor" opacity=".2"/>
+            <rect x="465" y="45" width="20" height="115" rx="2" fill="currentColor" opacity=".14"/>
+            <!-- minaret pair -->
+            <rect x="510" y="55" width="8"  height="105" rx="2" fill="currentColor" opacity=".18"/>
+            <ellipse cx="514" cy="54" rx="8" ry="10" fill="currentColor" opacity=".18"/>
+            <rect x="545" y="55" width="8"  height="105" rx="2" fill="currentColor" opacity=".18"/>
+            <ellipse cx="549" cy="54" rx="8" ry="10" fill="currentColor" opacity=".18"/>
+            <!-- more blocks -->
+            <rect x="570" y="70" width="32" height="90"  rx="2" fill="currentColor" opacity=".16"/>
+            <rect x="612" y="50" width="24" height="110" rx="2" fill="currentColor" opacity=".14"/>
+            <rect x="645" y="80" width="28" height="80"  rx="2" fill="currentColor" opacity=".18"/>
+            <rect x="684" y="60" width="22" height="100" rx="2" fill="currentColor" opacity=".16"/>
+            <rect x="715" y="45" width="18" height="115" rx="2" fill="currentColor" opacity=".12"/>
+            <rect x="742" y="72" width="30" height="88"  rx="2" fill="currentColor" opacity=".18"/>
+            <rect x="782" y="55" width="24" height="105" rx="2" fill="currentColor" opacity=".14"/>
+            <rect x="815" y="82" width="28" height="78"  rx="2" fill="currentColor" opacity=".2"/>
+            <rect x="850" y="65" width="35" height="95"  rx="2" fill="currentColor" opacity=".16"/>
+            <!-- ground -->
+            <rect x="0" y="158" width="900" height="4" fill="currentColor" opacity=".2"/>
+          </svg>
+        </div>
+
+        <!-- Content layer -->
+        <div class="banner-content">
+          <!-- LEFT: AQI stats -->
+          <div class="banner-left">
+            <div class="banner-live-badge"><span class="blb-dot"></span>Live AQI</div>
+            <div class="banner-aqi-row">
+              <div class="banner-aqi-num" id="heroAqi">—</div>
+              <div class="banner-aqi-unit">AQI (US)</div>
+            </div>
+            <div class="banner-quality-pill" id="heroAqiCat">—</div>
+            <div class="banner-pm-row">
+              <span class="banner-pm"><span class="pm-label">PM2.5</span> <span class="pm-val" id="heroPM25">—</span> µg/m³</span>
+              <span class="banner-pm"><span class="pm-label">PM10</span> <span class="pm-val" id="heroPM10">—</span> µg/m³</span>
+            </div>
+            <!-- AQI slider bar -->
+            <div class="banner-slider-wrap">
+              <div class="banner-slider-track">
+                <div class="bst-seg" style="background:#22c55e"></div>
+                <div class="bst-seg" style="background:#eab308"></div>
+                <div class="bst-seg" style="background:#f97316"></div>
+                <div class="bst-seg" style="background:#ef4444"></div>
+                <div class="bst-seg" style="background:#a855f7"></div>
+                <div class="bst-seg" style="background:#7e0023"></div>
+                <div class="banner-slider-thumb" id="sliderThumb"></div>
+              </div>
+              <div class="banner-slider-labels">
+                <span>Good</span><span>Moderate</span><span>Poor</span><span>Unhealthy</span><span>Severe</span><span>Hazardous</span>
+              </div>
+              <div class="banner-slider-nums">
+                <span>0</span><span>50</span><span>100</span><span>150</span><span>200</span><span>300</span><span>301+</span>
+              </div>
+            </div>
+            <div class="banner-update">Last updated: <span id="heroTime">just now</span></div>
+          </div>
+
+          <!-- CENTER: Animated character -->
+          <div class="banner-center">
+            <div class="banner-character" id="bannerChar">
+              <!-- SVG person with mask, animated by AQI level -->
+              <svg class="char-svg" id="charSvg" viewBox="0 0 120 200" fill="none">
+                <!-- Body -->
+                <ellipse cx="60" cy="145" rx="28" ry="38" fill="var(--char-shirt)"/>
+                <!-- Legs -->
+                <rect x="44" y="175" width="14" height="30" rx="7" fill="var(--char-pants)"/>
+                <rect x="62" y="175" width="14" height="30" rx="7" fill="var(--char-pants)"/>
+                <!-- Arms -->
+                <path class="char-arm-l" d="M32 130 Q14 148 18 165" stroke="var(--char-skin)" stroke-width="10" stroke-linecap="round"/>
+                <path class="char-arm-r" d="M88 130 Q106 148 102 165" stroke="var(--char-skin)" stroke-width="10" stroke-linecap="round"/>
+                <!-- Neck -->
+                <rect x="53" y="98" width="14" height="20" rx="7" fill="var(--char-skin)"/>
+                <!-- Head -->
+                <ellipse cx="60" cy="82" rx="28" ry="30" fill="var(--char-skin)"/>
+                <!-- Hair -->
+                <ellipse cx="60" cy="56" rx="28" ry="14" fill="var(--char-hair)"/>
+                <ellipse cx="36" cy="66" rx="8" ry="16" fill="var(--char-hair)"/>
+                <ellipse cx="84" cy="66" rx="8" ry="16" fill="var(--char-hair)"/>
+                <!-- Eyes -->
+                <ellipse cx="49" cy="80" rx="5" ry="6" fill="white"/>
+                <ellipse cx="71" cy="80" rx="5" ry="6" fill="white"/>
+                <circle class="char-pupil-l" cx="50" cy="81" r="3.5" fill="#2d3748"/>
+                <circle class="char-pupil-r" cx="72" cy="81" r="3.5" fill="#2d3748"/>
+                <!-- Eyebrows -->
+                <path class="char-brow-l" d="M43 72 Q49 70 55 72" stroke="#5a3825" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <path class="char-brow-r" d="M65 72 Q71 70 77 72" stroke="#5a3825" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <!-- Sweat drop (visible when AQI > 100) -->
+                <ellipse class="char-sweat" id="charSweat1" cx="82" cy="68" rx="4" ry="6" fill="#60a5fa" opacity="0"/>
+                <ellipse class="char-sweat" id="charSweat2" cx="90" cy="74" rx="3" ry="4.5" fill="#93c5fd" opacity="0"/>
+                <!-- Mask -->
+                <path id="charMask" d="M38 95 Q60 110 82 95 Q82 118 60 120 Q38 118 38 95Z" fill="white" opacity=".9"/>
+                <path id="charMaskStraps" d="M38 98 Q30 88 34 80 M82 98 Q90 88 86 80" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".7"/>
+                <!-- Mask filter lines -->
+                <line x1="45" y1="104" x2="75" y2="104" stroke="#e2e8f0" stroke-width="1.2" opacity="0.5"/>
+                <line x1="43" y1="110" x2="77" y2="110" stroke="#e2e8f0" stroke-width="1.2" opacity="0.5"/>
+              </svg>
+              <!-- Worried emoji overlay for bad AQI -->
+              <div class="char-mood-badge" id="charMood">😊</div>
             </div>
           </div>
-          <div class="hero-time">Last updated: <span id="heroTime">just now</span></div>
-        </div>
-        <div class="hero-right">
-          <div class="hero-gauge-wrap">
-            <canvas id="heroGauge" width="200" height="200"></canvas>
-            <div class="hero-gauge-overlay">
-              <div class="hgo-num" id="hgoNum">—</div>
-              <div class="hgo-cat" id="hgoCat">—</div>
+
+          <!-- RIGHT: Weather card -->
+          <div class="banner-right">
+            <div class="banner-weather-card" id="bannerWeather">
+              <div class="bwc-top">
+                <div class="bwc-icon" id="bwcIcon">🌤️</div>
+                <div class="bwc-temp-wrap">
+                  <div class="bwc-temp" id="bwcTemp">—</div>
+                  <div class="bwc-condition" id="bwcCondition">—</div>
+                </div>
+              </div>
+              <div class="bwc-divider"></div>
+              <div class="bwc-stats">
+                <div class="bwcs"><span class="bwcs-icon">💧</span><div><div class="bwcs-label">Humidity</div><div class="bwcs-val" id="bwcHumidity">—</div></div></div>
+                <div class="bwcs-sep"></div>
+                <div class="bwcs"><span class="bwcs-icon">🌬️</span><div><div class="bwcs-label">Wind Speed</div><div class="bwcs-val" id="bwcWind">—</div></div></div>
+                <div class="bwcs-sep"></div>
+                <div class="bwcs"><span class="bwcs-icon">☀️</span><div><div class="bwcs-label">UV Index</div><div class="bwcs-val" id="bwcUV">—</div></div></div>
+              </div>
             </div>
+            <div class="banner-city-name" id="heroCity">NEW DELHI</div>
           </div>
         </div>
-      </div>
+      </div><!-- /aqi-banner -->
 
       <div class="stat-cards">
         <div class="scard"><div class="scard-accent"></div><div class="scard-top"><span class="scard-icon">🔥</span><span class="scard-label">Most Polluted</span></div><div class="scard-val" id="sc1v">—</div><div class="scard-sub" id="sc1s">AQI —</div></div>
         <div class="scard"><div class="scard-accent"></div><div class="scard-top"><span class="scard-icon">🍃</span><span class="scard-label">Cleanest Zone</span></div><div class="scard-val" id="sc2v">—</div><div class="scard-sub" id="sc2s">AQI —</div></div>
-        <div class="scard"><div class="scard-accent"></div><div class="scard-top"><span class="scard-icon">📋</span><span class="scard-label">Active Policies</span></div><div class="scard-val" id="sc3v">0 / 4</div><div class="scard-sub" id="sc3s">No measures active</div></div>
-        <div class="scard"><div class="scard-accent"></div><div class="scard-top"><span class="scard-icon">⚠️</span><span class="scard-label">Risk Level</span></div><div class="scard-val" id="sc4v">—</div><div class="scard-sub" id="sc4s">—</div></div>
+        <div class="scard"><div class="scard-accent"></div><div class="scard-top"><span class="scard-icon">⚠️</span><span class="scard-label">Risk Level</span></div><div class="scard-val" id="sc3v">—</div><div class="scard-sub" id="sc3s">—</div></div>
+        <div class="scard"><div class="scard-accent"></div><div class="scard-top"><span class="scard-icon">📡</span><span class="scard-label">Monitoring Zones</span></div><div class="scard-val" id="sc4v">—</div><div class="scard-sub" id="sc4s">zones active</div></div>
       </div>
 
+      <!-- Overview lower: 3 columns now -->
       <div class="overview-lower">
         <div class="zones-panel">
           <div class="panel-hdr"><span class="panel-title">Monitoring Zones</span><span class="panel-badge" id="zonesBadge">0 zones</span></div>
           <div class="zones-list" id="zonesList"></div>
+        </div>
+        <div class="pollutants-panel">
+          <div class="panel-hdr"><span class="panel-title">Air Pollutant Breakdown</span><span class="panel-badge" id="pollutantCity">—</span></div>
+          <div class="pollutant-list" id="pollutantList"></div>
+          <div class="pollutant-chart-wrap"><canvas id="pollutantChart"></canvas></div>
         </div>
         <div class="snapshot-panel">
           <div class="panel-hdr"><span class="panel-title">AQI Snapshot</span></div>
@@ -243,6 +368,7 @@
         <div class="map-title-group">
           <span class="map-pg-title">POLLUTION HOTSPOT MAP</span>
           <span class="map-city-label" id="mapCityLabel">New Delhi</span>
+          <span class="map-data-src">Source: aqicn.org / WAQI</span>
         </div>
         <div class="map-legend">
           <span class="ml"><i style="background:#22c55e"></i>Good</span>
@@ -296,47 +422,6 @@
       </div>
     </section>
 
-    <!-- POLICY -->
-    <section class="page" id="page-policy">
-      <div class="policy-header">
-        <div><div class="policy-pg-title">POLICY ENFORCEMENT</div><div class="policy-pg-sub">Toggle enforcement measures and see projected AQI impact</div></div>
-        <div class="policy-impact-pill"><div class="pip-label">Projected Reduction</div><div class="pip-value" id="pipValue">−0 AQI</div></div>
-      </div>
-      <div class="policy-list">
-        <div class="pol-card" id="polc-vehicle">
-          <div class="pol-emoji">🚗</div>
-          <div class="pol-info"><div class="pol-name">Vehicle Restriction</div><div class="pol-desc">Odd-even scheme · Ban on heavy commercial vehicles 7AM–10PM</div><div class="pol-tag" id="polt-vehicle">−18 AQI reduction expected</div></div>
-          <div class="pol-right"><div class="pol-status" id="pols-vehicle">INACTIVE</div><label class="toggle-switch"><input type="checkbox" id="togl-vehicle" onchange="togglePol('vehicle',18)"/><span class="ts-track"><span class="ts-thumb"></span></span></label></div>
-        </div>
-        <div class="pol-card" id="polc-construction">
-          <div class="pol-emoji">🏗</div>
-          <div class="pol-info"><div class="pol-name">Construction Ban</div><div class="pol-desc">Halt all demolition, earthwork & construction within city limits</div><div class="pol-tag" id="polt-construction">−12 AQI reduction expected</div></div>
-          <div class="pol-right"><div class="pol-status" id="pols-construction">INACTIVE</div><label class="toggle-switch"><input type="checkbox" id="togl-construction" onchange="togglePol('construction',12)"/><span class="ts-track"><span class="ts-thumb"></span></span></label></div>
-        </div>
-        <div class="pol-card" id="polc-factory">
-          <div class="pol-emoji">🏭</div>
-          <div class="pol-info"><div class="pol-name">Factory Emission Control</div><div class="pol-desc">Mandatory scrubbers · Cap industrial output to 60% of capacity</div><div class="pol-tag" id="polt-factory">−25 AQI reduction expected</div></div>
-          <div class="pol-right"><div class="pol-status" id="pols-factory">INACTIVE</div><label class="toggle-switch"><input type="checkbox" id="togl-factory" onchange="togglePol('factory',25)"/><span class="ts-track"><span class="ts-thumb"></span></span></label></div>
-        </div>
-        <div class="pol-card" id="polc-school">
-          <div class="pol-emoji">🏫</div>
-          <div class="pol-info"><div class="pol-name">School Closure</div><div class="pol-desc">Close all K–12 schools & universities city-wide for public safety</div><div class="pol-tag pol-tag-protect" id="polt-school">Protective measure</div></div>
-          <div class="pol-right"><div class="pol-status" id="pols-school">INACTIVE</div><label class="toggle-switch"><input type="checkbox" id="togl-school" onchange="togglePol('school',0)"/><span class="ts-track"><span class="ts-thumb"></span></span></label></div>
-        </div>
-      </div>
-      <div class="sim-panel">
-        <div class="sim-panel-title">IMPACT SIMULATION</div>
-        <div class="sim-metrics">
-          <div class="sim-metric"><div class="sm-num" id="simCur">—</div><div class="sm-lbl">Current AQI</div></div>
-          <div class="sim-arrow">→</div>
-          <div class="sim-metric"><div class="sm-num green" id="simProj">—</div><div class="sm-lbl">Projected AQI</div></div>
-          <div class="sim-metric"><div class="sm-num amber" id="simRed">0</div><div class="sm-lbl">AQI Reduced</div></div>
-          <div class="sim-metric"><div class="sm-num" id="simAct">0</div><div class="sm-lbl">Policies Active</div></div>
-        </div>
-        <div class="sim-active-list" id="simActiveList">No policies currently active</div>
-      </div>
-    </section>
-
     <!-- TRENDS -->
     <section class="page" id="page-trends">
       <div class="trends-hdr">
@@ -355,74 +440,192 @@
       </div>
     </section>
 
-    <!-- BREATHING -->
-    <section class="page page-breathing" id="page-breathing">
-      <div class="breathing-container">
-        <div class="br-head">
-          <div class="br-title">GUIDED BREATHING</div>
-          <div class="br-sub">4 · 4 · 6 Pattern — Relax your airways during high pollution</div>
-          <div class="br-aqi-chip" id="brChip">Current AQI: —</div>
+    <!-- CLEAN AIR ROUTE -->
+    <section class="page" id="page-route">
+      <!-- Top bar -->
+      <div class="route-header">
+        <div>
+          <div class="route-pg-title">CLEAN AIR ROUTE PLANNER</div>
+          <div class="route-pg-sub">Real road routing via OSRM · Lowest pollution path through <span id="routeCityName">your city</span></div>
         </div>
-        <div class="br-scene">
-          <div class="br-ring br-ring-3"></div>
-          <div class="br-ring br-ring-2"></div>
-          <div class="br-ring br-ring-1"></div>
-          <svg class="br-progress-ring" viewBox="0 0 220 220">
-            <circle cx="110" cy="110" r="100" fill="none" stroke-width="2"/>
-            <circle id="brProgressArc" cx="110" cy="110" r="100" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="628" stroke-dashoffset="628" stroke-linecap="round" transform="rotate(-90 110 110)"/>
-          </svg>
-          <div class="br-bubble" id="brBubble">
-            <div class="br-phase-text" id="brPhaseText">Ready</div>
-            <div class="br-count-text" id="brCountText"></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="route-voice-toggle" id="voiceToggleBtn" onclick="toggleVoice()" title="Toggle voice navigation">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 2a3 3 0 013 3v5a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M5 10a5 5 0 0010 0M10 15v3M7 18h6"/></svg>
+            Voice On
+          </button>
+          <div class="route-status-pill" id="routeStatusPill">
+            <span class="rsp-dot"></span><span id="routeStatusText">Ready to plan</span>
           </div>
         </div>
-        <div class="br-pattern-row">
-          <div class="bpr-item bpr-inhale"><span class="bpr-num">4s</span><span class="bpr-lbl">Inhale</span></div>
-          <div class="bpr-dot">·</div>
-          <div class="bpr-item bpr-hold"><span class="bpr-num">4s</span><span class="bpr-lbl">Hold</span></div>
-          <div class="bpr-dot">·</div>
-          <div class="bpr-item bpr-exhale"><span class="bpr-num">6s</span><span class="bpr-lbl">Exhale</span></div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="route-inputs">
+        <div class="route-input-group">
+          <label class="route-input-label"><span class="ril-dot" style="background:#22c55e"></span>Start Point</label>
+          <div class="route-autocomplete-wrap">
+            <input class="route-input" id="routeStart" type="text" placeholder="Type a zone name (e.g. Anand Vihar)…" oninput="suggestRoutePlace('start',this.value)" autocomplete="off"/>
+            <div class="route-suggestions" id="startSuggestions"></div>
+          </div>
         </div>
-        <button class="br-start-btn" id="brStartBtn" onclick="toggleBreathing()">▶ &nbsp; Start Exercise</button>
-        <div class="br-session-stats">
-          <div class="bss-item"><div class="bss-val" id="bssCycles">0</div><div class="bss-lbl">Cycles</div></div>
-          <div class="bss-sep"></div>
-          <div class="bss-item"><div class="bss-val" id="bssTime">0:00</div><div class="bss-lbl">Duration</div></div>
+        <div class="route-swap-btn" onclick="swapRoutePoints()" title="Swap">⇅</div>
+        <div class="route-input-group">
+          <label class="route-input-label"><span class="ril-dot" style="background:#ef4444"></span>Destination</label>
+          <div class="route-autocomplete-wrap">
+            <input class="route-input" id="routeEnd" type="text" placeholder="Type destination zone…" oninput="suggestRoutePlace('end',this.value)" autocomplete="off"/>
+            <div class="route-suggestions" id="endSuggestions"></div>
+          </div>
         </div>
-        <div class="br-tip-text" id="brTip">Find a comfortable seated position. Relax your shoulders and jaw before starting.</div>
+        <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+          <button class="route-plan-btn" onclick="planCleanRoute()">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"/></svg>Find Clean Route
+          </button>
+          <button class="route-plan-btn" style="background:linear-gradient(135deg,#22c55e,#16a34a)" onclick="startNavigation()" id="navBtn" disabled>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l7-7 7 7M10 3v14"/></svg>Navigate
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation banner (shown during nav mode) -->
+      <div class="nav-banner" id="navBanner" style="display:none">
+        <div class="nav-banner-inner">
+          <div class="nav-turn-icon" id="navTurnIcon">⬆️</div>
+          <div class="nav-instruction-wrap">
+            <div class="nav-step-text" id="navStepText">Follow the route</div>
+            <div class="nav-step-dist" id="navStepDist">—</div>
+          </div>
+          <div class="nav-progress-wrap">
+            <div class="nav-progress-bar"><div class="nav-progress-fill" id="navProgressFill"></div></div>
+            <span class="nav-step-counter" id="navStepCounter">Step 1 of 1</span>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="nav-ctrl-btn" onclick="prevNavStep()">‹ Prev</button>
+            <button class="nav-ctrl-btn nav-ctrl-next" onclick="nextNavStep()">Next ›</button>
+            <button class="nav-ctrl-btn" onclick="stopNavigation()" style="background:#ef444422;color:#ef4444;border-color:#ef444444">✕ End</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map + sidebar -->
+      <div class="route-main">
+        <div id="routeMap"></div>
+        <div class="route-sidebar">
+          <div id="routeResult" class="route-result-placeholder">
+            <div class="rrp-icon">🗺️</div>
+            <div class="rrp-text">Select start &amp; destination zones, then click <b>Find Clean Route</b> to get real road directions with AQI scores.</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- AQI FORECAST (new) -->
+    <!-- BREATHING -->
+    <section class="page page-breathing" id="page-breathing">
+      <div class="br-page-wrap">
+        <!-- Exercise selector tabs -->
+        <div class="br-exercise-tabs">
+          <button class="br-ex-tab active" onclick="selectExercise(0,this)">4-4-6 Calm</button>
+          <button class="br-ex-tab" onclick="selectExercise(1,this)">Box Breathing</button>
+          <button class="br-ex-tab" onclick="selectExercise(2,this)">4-7-8 Sleep</button>
+          <button class="br-ex-tab" onclick="selectExercise(3,this)">Wim Hof</button>
+          <button class="br-ex-tab" onclick="selectExercise(4,this)">Belly Breath</button>
+        </div>
+
+        <div class="br-two-col">
+          <!-- Left: animation -->
+          <div class="breathing-container">
+            <div class="br-head">
+              <div class="br-title" id="brTitle">GUIDED BREATHING</div>
+              <div class="br-sub" id="brSub">4 · 4 · 6 Pattern — Relax your airways during high pollution</div>
+              <div class="br-aqi-chip" id="brChip">Current AQI: —</div>
+            </div>
+            <div class="br-scene">
+              <div class="br-ring br-ring-3"></div><div class="br-ring br-ring-2"></div><div class="br-ring br-ring-1"></div>
+              <svg class="br-progress-ring" viewBox="0 0 220 220"><circle cx="110" cy="110" r="100" fill="none" stroke-width="2"/><circle id="brProgressArc" cx="110" cy="110" r="100" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="628" stroke-dashoffset="628" stroke-linecap="round" transform="rotate(-90 110 110)"/></svg>
+              <div class="br-bubble" id="brBubble"><div class="br-phase-text" id="brPhaseText">Ready</div><div class="br-count-text" id="brCountText"></div></div>
+            </div>
+            <div class="br-pattern-row" id="brPatternRow">
+              <div class="bpr-item bpr-inhale"><span class="bpr-num" id="brIn">4s</span><span class="bpr-lbl">Inhale</span></div>
+              <div class="bpr-dot">·</div>
+              <div class="bpr-item bpr-hold" id="brHoldItem"><span class="bpr-num" id="brHold">4s</span><span class="bpr-lbl">Hold</span></div>
+              <div class="bpr-dot" id="brDot2">·</div>
+              <div class="bpr-item bpr-exhale"><span class="bpr-num" id="brEx">6s</span><span class="bpr-lbl">Exhale</span></div>
+            </div>
+            <button class="br-start-btn" id="brStartBtn" onclick="toggleBreathing()">▶ &nbsp; Start Exercise</button>
+            <div class="br-session-stats">
+              <div class="bss-item"><div class="bss-val" id="bssCycles">0</div><div class="bss-lbl">Cycles</div></div>
+              <div class="bss-sep"></div>
+              <div class="bss-item"><div class="bss-val" id="bssTime">0:00</div><div class="bss-lbl">Duration</div></div>
+              <div class="bss-sep"></div>
+              <div class="bss-item"><div class="bss-val" id="bssCalories">0</div><div class="bss-lbl">kcal est.</div></div>
+            </div>
+            <div class="br-tip-text" id="brTip">Find a comfortable seated position. Relax your shoulders and jaw before starting.</div>
+          </div>
+
+          <!-- Right: exercise info cards -->
+          <div class="br-info-panel">
+            <div class="br-info-card" id="brInfoCard">
+              <div class="bic-badge" id="brDiffBadge">Beginner</div>
+              <div class="bic-title" id="brInfoTitle">4-4-6 Calm Breathing</div>
+              <div class="bic-desc" id="brInfoDesc">A gentle anti-stress pattern ideal for smoky or polluted days. Activates the parasympathetic nervous system to reduce anxiety and slow heart rate.</div>
+              <div class="bic-benefits">
+                <div class="bic-benefit" id="brBen1">✓ Reduces stress hormones</div>
+                <div class="bic-benefit" id="brBen2">✓ Eases airway irritation</div>
+                <div class="bic-benefit" id="brBen3">✓ Lowers blood pressure</div>
+              </div>
+              <div class="bic-when" id="brWhen">Best used when: AQI &gt; 100 or feeling anxious</div>
+            </div>
+
+            <!-- All 5 exercise quick cards -->
+            <div class="br-quick-grid">
+              <div class="brq-card" onclick="selectExercise(0,null)">
+                <div class="brq-icon">🌬️</div>
+                <div class="brq-name">4-4-6 Calm</div>
+                <div class="brq-pat">4s · 4s · 6s</div>
+              </div>
+              <div class="brq-card" onclick="selectExercise(1,null)">
+                <div class="brq-icon">📦</div>
+                <div class="brq-name">Box Breathing</div>
+                <div class="brq-pat">4s · 4s · 4s · 4s</div>
+              </div>
+              <div class="brq-card" onclick="selectExercise(2,null)">
+                <div class="brq-icon">😴</div>
+                <div class="brq-name">4-7-8 Sleep</div>
+                <div class="brq-pat">4s · 7s · 8s</div>
+              </div>
+              <div class="brq-card" onclick="selectExercise(3,null)">
+                <div class="brq-icon">❄️</div>
+                <div class="brq-name">Wim Hof</div>
+                <div class="brq-pat">Power · Hold · Release</div>
+              </div>
+              <div class="brq-card" onclick="selectExercise(4,null)">
+                <div class="brq-icon">🫁</div>
+                <div class="brq-name">Belly Breath</div>
+                <div class="brq-pat">5s · 0s · 5s</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORECAST -->
     <section class="page" id="page-forecast">
-      <div class="trends-hdr">
-        <div class="trends-pg-title">AQI FORECAST</div>
-        <div class="forecast-sub">7-day simulated air quality prediction</div>
-      </div>
+      <div class="trends-hdr"><div class="trends-pg-title">AQI FORECAST</div><div class="forecast-sub">7-day simulated air quality prediction</div></div>
       <div class="forecast-cards" id="forecastCards"></div>
-      <div class="main-chart-box" style="margin-top:16px"><canvas id="forecastChart"></canvas></div>
+      <div class="main-chart-box" style="margin-top:14px"><canvas id="forecastChart"></canvas></div>
       <div class="forecast-info-row">
-        <div class="fi-card"><div class="fi-icon">🌬️</div><div class="fi-title">Wind Speed</div><div class="fi-val" id="fiWind">—</div></div>
-        <div class="fi-card"><div class="fi-icon">💧</div><div class="fi-title">Humidity</div><div class="fi-val" id="fiHumidity">—</div></div>
-        <div class="fi-card"><div class="fi-icon">🌡️</div><div class="fi-title">Temperature</div><div class="fi-val" id="fiTemp">—</div></div>
-        <div class="fi-card"><div class="fi-icon">🌧️</div><div class="fi-title">Rain Chance</div><div class="fi-val" id="fiRain">—</div></div>
+        <div class="fi-card"><div class="fi-icon">🌬️</div><div class="fi-info"><div class="fi-title">Wind Speed</div><div class="fi-val" id="fiWind">—</div></div></div>
+        <div class="fi-card"><div class="fi-icon">💧</div><div class="fi-info"><div class="fi-title">Humidity</div><div class="fi-val" id="fiHumidity">—</div></div></div>
+        <div class="fi-card"><div class="fi-icon">🌡️</div><div class="fi-info"><div class="fi-title">Temperature</div><div class="fi-val" id="fiTemp">—</div></div></div>
+        <div class="fi-card"><div class="fi-icon">🌧️</div><div class="fi-info"><div class="fi-title">Rain Chance</div><div class="fi-val" id="fiRain">—</div></div></div>
       </div>
     </section>
 
-    <!-- HEAT MAP (new) -->
+    <!-- HEAT MAP -->
     <section class="page" id="page-heatmap">
-      <div class="trends-hdr">
-        <div class="trends-pg-title">POLLUTION HEAT MAP</div>
-        <div class="forecast-sub">Hour-by-day AQI intensity grid</div>
-      </div>
-      <div class="heatmap-wrap">
-        <div class="heatmap-grid" id="heatmapGrid"></div>
-      </div>
-      <div class="heatmap-legend">
-        <span>Low AQI</span>
-        <div class="hm-gradient"></div>
-        <span>High AQI</span>
-      </div>
+      <div class="trends-hdr"><div class="trends-pg-title">POLLUTION HEAT MAP</div><div class="forecast-sub">Hour-by-day AQI intensity across the week</div></div>
+      <div class="heatmap-wrap"><div class="heatmap-grid" id="heatmapGrid"></div></div>
+      <div class="heatmap-legend"><span>Low AQI</span><div class="hm-gradient"></div><span>High AQI</span></div>
     </section>
 
   </main>
